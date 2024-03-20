@@ -33,6 +33,7 @@ jobs:
       uses: actions/checkout@v4
       with:
         repository: '2dust/v2rayNG'
+        ref: '${{ inputs.V2RAYNG_VERSION }}'
 
     - name: Checkout AndroidLibXrayLite repository
       uses: actions/checkout@v4
