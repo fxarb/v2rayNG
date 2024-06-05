@@ -114,3 +114,14 @@ jobs:
       with:
         name: v2rayNG_arm64-v8a-signed
         path: V2rayNG/app/build/outputs/apk/release/v2rayNG_*_arm64-v8a-signed.apk
+
+    - name: Upload apk to release
+      uses: svenstaro/upload-release-action@v2
+      with:
+        repo_token: ${{ secrets.GITHUB_TOKEN }}
+        file: V2rayNG/app/build/outputs/apk/release/v2rayNG_*_arm64-v8a-signed.apk
+        file_glob: true
+        asset_name: v2rayNG_${{ inputs.V2RAYNG_VERSION }}_${{ inputs.COMMIT_HASH }}.apk
+        tag: build-v${{ inputs.V2RAYNG_VERSION }}_${{ inputs.COMMIT_HASH }}-${{ github.run_id }}
+        overwrite: true
+        body: ${{ github.event.head_commit.message }}
