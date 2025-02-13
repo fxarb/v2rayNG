@@ -128,14 +128,14 @@ jobs:
       id: android_keystore
       with:
         fileName: "android_keystore.jks"
-        encodedString: ${{ secrets.APP_KEYSTORE_BASE64 }}
+        encodedString: ${{ secrets.SIGNING_KEY }}
 
     - name: Build APK
       run: |
         cd ${{ github.workspace }}/V2rayNG
         chmod 755 gradlew
         ./gradlew licenseFdroidReleaseReport
-        ./gradlew assembleRelease -Pandroid.injected.signing.store.file=${{ steps.android_keystore.outputs.filePath }} -Pandroid.injected.signing.store.password=${{ secrets.APP_KEYSTORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.APP_KEYSTORE_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.APP_KEY_PASSWORD }}
+        ./gradlew assembleRelease -Pandroid.injected.signing.store.file=${{ steps.android_keystore.outputs.filePath }} -Pandroid.injected.signing.store.password=${{ secrets.SIGNING_STORE_PASSWORD }} -Pandroid.injected.signing.key.alias=${{ secrets.SIGNING_KEY_ALIAS }} -Pandroid.injected.signing.key.password=${{ secrets.SIGNING_KEY_PASSWORD }}
       env:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
 
